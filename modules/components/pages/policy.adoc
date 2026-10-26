@@ -68,9 +68,9 @@ Use this to embed a policy script directly in `conf/policy.json` without a separ
 Type: String.
 
 `additionalFiles`::
-Optional array of paths to additional policy scripts resolved against the project home directory (the runtime directory containing `conf/`).
+Optional array of paths to additional policy scripts resolved against the xref:deployment:startup-locations.adoc#launcher-project-location[project location].
 An absolute path is used as-is.
-A relative path is resolved against project home, not against the script registry source directories.
+A relative path is resolved against the xref:deployment:startup-locations.adoc#launcher-project-location[project location], not against the script registry source directories.
 A file in `<project>/script/` must be referenced as `script/myFile.js`, not as a bare name.
 Each file is read at activation time, its source code is exposed to `policy.js` through the `additionalPolicies` binding, and `policy.js` evaluates each file to register custom policy IDs.
 Type: Array of String.
@@ -406,7 +406,7 @@ function myCustomPolicy(fullObject, value, params, property) {
 ----
 
 WARNING: Files referenced by `additionalFiles` are loaded with `eval()` and run with full server-side privileges.
-The path is resolved relative to the project home and is not restricted to the script directory.
+The path is resolved relative to the xref:deployment:startup-locations.adoc#launcher-project-location[project location] and is not restricted to the script directory.
 Treat additional policy files as trusted code.
 
 NOTE: To replace the entire policy engine rather than extend it, change `"file"` in `conf/policy.json` to point to a custom script name.

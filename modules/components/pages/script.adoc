@@ -117,7 +117,7 @@ Minimum time in milliseconds before a changed Groovy script is recompiled.
 Shipped value: `60000`.
 
 NOTE: `&{...}` tokens are property substitutions resolved at startup.
-For example, `launcher.install.location` is the installation directory, and `launcher.project.location` is the project directory.
+See xref:deployment:startup-locations.adoc[Startup Locations] for what `launcher.install.location`, `launcher.project.location`, and the other startup-resolved properties refer to.
 
 === Script sources
 
@@ -140,8 +140,8 @@ If key order changes, the precedence hierarchy is silently altered, and a deploy
 The shipped sources are:
 
 `default`:: `&{launcher.install.location}/bin/defaults/script` – scripts that ship with Wren:IDM.
-`install`:: `&{launcher.install.location}` – the installation root.
-`project`:: `&{launcher.project.location}` – the project root.
+`install`:: `&{launcher.install.location}` – the xref:deployment:startup-locations.adoc#launcher-install-location[installation location].
+`project`:: `&{launcher.project.location}` – the xref:deployment:startup-locations.adoc#launcher-project-location[project location].
 `project-script`:: `&{launcher.project.location}/script` – project-specific scripts.
 
 [[script-variables]]
@@ -326,13 +326,13 @@ When omitted, `useCache` defaults to `false` and the property is read on every c
 +
 
 `identityServer.getWorkingLocation()`::
-Returns the absolute path of the working location.
+Returns the absolute path of the xref:deployment:startup-locations.adoc#launcher-working-location[working location].
 
 `identityServer.getProjectLocation()`::
-Returns the absolute path of the project location.
+Returns the absolute path of the xref:deployment:startup-locations.adoc#launcher-project-location[project location].
 
 `identityServer.getInstallLocation()`::
-Returns the absolute path of the installation location.
+Returns the absolute path of the xref:deployment:startup-locations.adoc#launcher-install-location[installation location].
 
 == The /script endpoint
 
