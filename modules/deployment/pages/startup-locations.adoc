@@ -1,0 +1,47 @@
+= Startup Locations
+
+Wren:IDM resolves relative configuration and script paths against one of three startup locations: install, project, and working.
+Each location has a startup parameter, a configuration property of the same name, and an `IdentityServer` accessor method.
+
+[[launcher-install-location]]
+`launcher.install.location`::
+The installation directory.
+Set by the `--install-location` / `-i` startup parameter.
+When the parameter is absent, the launcher uses the JVM process working directory (`user.dir`) instead.
+Read it from `IdentityServer` through `getInstallLocation()`, or resolve a path against it directly through `getFileForInstallPath(path)`.
+
+[[launcher-project-location]]
+`launcher.project.location`::
+The project directory: the deployment-specific runtime directory that holds the `conf/` directory Wren:IDM reads its configuration from.
+Set by the `--project-location` / `-p` startup parameter.
+When the parameter is absent, the launcher uses the JVM process working directory (`user.dir`) instead.
+Read it from `IdentityServer` through `getProjectLocation()`, or resolve a path against it directly through `getFileForProjectPath(path)`.
+
+[[launcher-working-location]]
+`launcher.working.location`::
+A third, independently configurable directory alongside the install and project locations, used for runtime data generated while Wren:IDM runs.
+Set by the `--working-location` / `-w` startup parameter.
+When the parameter is absent, the launcher uses the JVM process working directory (`user.dir`) instead.
+The OSGi framework bundle cache defaults to a `felix-cache` directory under this location.
+Setting the `--storage` / `-s` startup parameter to an explicit directory overrides this default.
+The shipped JSON audit event handler also defaults its log directory here (`&{launcher.working.location}/audit`).
+Read it from `IdentityServer` through `getWorkingLocation()`, or resolve a path against it directly through `getFileForWorkingPath(path)`.
+
+== Using these locations
+
+=== Referencing a location
+
+Each location is available as an `&{...}` property-substitution token in configuration files, for example `&{launcher.install.location}` or `&{launcher.project.location}`.
+Scripts read the same three locations through the `identityServer` binding.
+See xref:components:script.adoc#identityserver-binding[The identityServer binding] for the binding reference.
+
+=== Setting a location's value
+
+Pass a location's value as a separate argument after its startup flag, for example `-i /opt/wrenidm`.
+The same argument form applies to `-p` and `-w`.
+
+A location's value can come from three sources, checked in this order:
+
+* a JVM system property of the same name, for example `-Dlauncher.install.location=<path>`
+* an entry of the same name in `conf/boot/boot.properties`
+* the startup flag shown above, falling back to `user.dir` when neither of the other two sources sets the property

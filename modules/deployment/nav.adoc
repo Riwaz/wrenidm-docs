@@ -1,2 +1,3 @@
 * Deployment Guide
 ** xref:upgrade.adoc[Upgrade Guide]
+** xref:startup-locations.adoc[Startup Locations]

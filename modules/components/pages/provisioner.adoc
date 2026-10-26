@@ -74,7 +74,7 @@ The optional `provisioner.openicf.connectorinfoprovider.json` file controls wher
 
 `connectorsLocation`::
 Path to the directory containing local connector JAR files.
-Relative paths resolve against the Wren:IDM installation directory (the `--install-location` / `-i` startup parameter), or the process working directory when that parameter is not set.
+Relative paths resolve against the xref:deployment:startup-locations.adoc#launcher-install-location[installation location].
 Default: `connectors`.
 
 `remoteConnectorServers`::
@@ -682,6 +682,6 @@ Inline script text.
 Mutually exclusive with `actionFile`.
 
 `actionFile`:::
-Path to a script file, resolved against the Wren:IDM project root.
+Path to a script file, resolved against the xref:deployment:startup-locations.adoc#launcher-project-location[project location].
 Mutually exclusive with `actionSource`.
 When both are present, `actionFile` takes precedence and `actionSource` is ignored.
